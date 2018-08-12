@@ -10,6 +10,7 @@ val neo4jEmbeddedDriverVersion = "3.0.1"
 val neo4jVersion = "3.1.2"
 val mockitoVersion = "1.5.0"
 val kluentVersion = "1.35"
+val swaggerVersion = "2.8.0"
 
 buildscript {
     repositories {
@@ -68,6 +69,9 @@ dependencies {
     compile(kotlin("reflect"))
     compileSpringBootStarters("actuator", "data-neo4j", "hateoas", "web")
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    compile("io.springfox:springfox-swagger2:$swaggerVersion")
+    compile("io.springfox:springfox-swagger-ui:$swaggerVersion")
 
     testCompile(springBootStarter("test"))
     testCompile("org.neo4j:neo4j-ogm-embedded-driver:$neo4jEmbeddedDriverVersion")
