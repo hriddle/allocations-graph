@@ -1,0 +1,8 @@
+spring:
+  data:
+    neo4j:
+      username: neo4j
+      password: secret
+      driver: org.neo4j.ogm.drivers.embedded.driver.EmbeddedDriver
+
+indexes.auto: assert

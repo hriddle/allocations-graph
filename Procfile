@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/*.jar --spring.data.neo4j.uri=$GRAPHENEDB_BOLT_URL --spring.data.neo4j.username=$GRAPHENEDB_BOLT_USER --spring.data.neo4j.password=$GRAPHENEDB_BOLT_PASSWORD
