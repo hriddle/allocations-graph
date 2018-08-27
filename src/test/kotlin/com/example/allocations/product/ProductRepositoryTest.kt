@@ -1,4 +1,4 @@
-package com.example.allocations
+package com.example.allocations.product
 
 import com.example.allocations.MockPersonNode.amy
 import com.example.allocations.MockPersonNode.jake
@@ -15,8 +15,8 @@ import com.example.allocations.MockWorkedOnRelationship.puzzleMasterDetectiveAmy
 import com.example.allocations.MockWorkedOnRelationship.terryKittiesDetectiveAmy
 import com.example.allocations.MockWorkedOnRelationship.terryKittiesSergeantTerry
 import com.example.allocations.person.PersonRepository
-import com.example.allocations.product.ProductRepository
-import org.amshove.kluent.`should equal`
+import org.amshove.kluent.shouldEqual
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,26 +36,36 @@ class ProductRepositoryTest {
 
     @Before
     fun setUp() {
-        productRepository.deleteAll()
-        personRepository.deleteAll()
-
         loadPeople()
         loadProducts()
         addRelationships()
     }
 
+    @After
+    fun tearDown() {
+        productRepository.deleteAll()
+        personRepository.deleteAll()
+    }
+
     @Test
-    fun testGraph() {
-        val graph = productRepository.findAll().toList()
+    fun `it returns the state of a product team at a certain date in time`() {
+        productRepository.findProductsForDate("2018-08-01").toList().let { graph ->
+            graph.size shouldEqual 1
+            graph.first().let {
+                it.name shouldEqual puzzleMaster.name
+                it.team.size shouldEqual 1
+                it.team.first().person.name = amy.name
+            }
+        }
 
-        graph.size `should equal` 4
-
-        graph.forEach {
-            when {
-                it.name == terryKitties.name -> it.team.size `should equal` 2
-                it.name == fullBoyle.name -> it.team.size `should equal` 3
-                it.name == puzzleMaster.name -> it.team.size `should equal` 1
-                it.name == coralPalms.name -> it.team.size `should equal` 0
+        productRepository.findProductsForDate("2018-01-02").toList().let { graph ->
+            graph.size shouldEqual 3
+            graph.forEach {
+                when {
+                    it.name == terryKitties.name -> it.team.size shouldEqual 2
+                    it.name == fullBoyle.name -> it.team.size shouldEqual 3
+                    it.name == puzzleMaster.name -> it.team.size shouldEqual 1
+                }
             }
         }
     }

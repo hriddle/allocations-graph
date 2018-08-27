@@ -6,11 +6,11 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 val kotlinVersion = "1.2.60"
 val springBootVersion = "2.0.2.RELEASE"
 val springDependencyVersion = "1.0.6.RELEASE"
-val neo4jEmbeddedDriverVersion = "3.0.1"
-val neo4jVersion = "3.1.2"
+val neo4jEmbeddedDriverVersion = "3.1.1-RC1"
+val neo4jVersion = "3.4.5"
 val mockitoVersion = "1.5.0"
 val kluentVersion = "1.35"
-val swaggerVersion = "2.8.0"
+val swaggerVersion = "2.9.2"
 
 buildscript {
     repositories {

@@ -3,6 +3,7 @@ package com.example.allocations.product
 import com.example.allocations.toNullable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 
 @Service
 class ProductService(val productRepository: ProductRepository) {
@@ -22,4 +23,8 @@ class ProductService(val productRepository: ProductRepository) {
         ).let { Product.fromNode(it) }
     }
 
+    @Transactional
+    fun findProductsForDate(date: LocalDate): List<Product> {
+        return productRepository.findProductsForDate(date.toString()).map { Product.fromNode(it) }
+    }
 }

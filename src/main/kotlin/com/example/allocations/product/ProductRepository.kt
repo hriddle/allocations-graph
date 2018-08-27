@@ -1,19 +1,29 @@
 package com.example.allocations.product
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.example.allocations.team.WorkedOn
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
 import org.neo4j.ogm.annotation.NodeEntity
 import org.neo4j.ogm.annotation.Relationship
+import org.springframework.data.neo4j.annotation.Query
 import org.springframework.data.neo4j.repository.Neo4jRepository
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import java.time.LocalDate
 import java.util.ArrayList
 import java.util.Objects
 
 @Repository
-interface ProductRepository : Neo4jRepository<ProductNode, Long>
+interface ProductRepository : Neo4jRepository<ProductNode, Long> {
+
+    @Query("""WITH date({queryDate}) AS d
+        MATCH (people:Person)-[worked:WORKED_ON]->(product:Product)
+        WHERE date(worked.startDate) <= d
+        AND (date(worked.startDate)+ duration({ days: (worked.durationInWeeks*7) })) >= d
+        RETURN people, worked, product""")
+    fun findProductsForDate(@Param("queryDate") date: String): Iterable<ProductNode>
+}
 
 @NodeEntity(label = "Product")
 data class ProductNode(

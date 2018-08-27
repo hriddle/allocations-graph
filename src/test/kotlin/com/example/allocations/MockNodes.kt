@@ -9,6 +9,7 @@ import com.example.allocations.MockProductNode.terryKitties
 import com.example.allocations.person.PersonNode
 import com.example.allocations.product.ProductNode
 import com.example.allocations.team.WorkedOn
+import java.time.LocalDate
 
 object MockPersonNode {
     val jake = PersonNode(name = "Jake")
@@ -25,10 +26,10 @@ object MockProductNode {
 }
 
 object MockWorkedOnRelationship {
-    val fullBoyleSergeantTerry = WorkedOn(durationInWeeks = 12, role = "SERGEANT", product = fullBoyle, person = terry)
-    val fullBoyleDetectiveAmy = WorkedOn(durationInWeeks = 24, role = "DETECTIVE", product = fullBoyle, person = amy)
-    val fullBoyleDetectiveJake = WorkedOn(durationInWeeks = 12, role = "DETECTIVE", product = fullBoyle, person = jake)
-    val puzzleMasterDetectiveAmy = WorkedOn(durationInWeeks = 52, role = "DETECTIVE", product = puzzleMaster, person = amy)
-    val terryKittiesDetectiveAmy = WorkedOn(durationInWeeks = 12, role = "DETECTIVE", product = terryKitties, person = amy)
-    val terryKittiesSergeantTerry = WorkedOn(durationInWeeks = 12, role = "SERGEANT", product = terryKitties, person = terry)
+    val fullBoyleSergeantTerry = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 12, role = "SERGEANT", product = fullBoyle, person = terry)
+    val fullBoyleDetectiveAmy = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 24, role = "DETECTIVE", product = fullBoyle, person = amy)
+    val fullBoyleDetectiveJake = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 12, role = "DETECTIVE", product = fullBoyle, person = jake)
+    val puzzleMasterDetectiveAmy = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 52, role = "DETECTIVE", product = puzzleMaster, person = amy)
+    val terryKittiesDetectiveAmy = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 12, role = "DETECTIVE", product = terryKitties, person = amy)
+    val terryKittiesSergeantTerry = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 12, role = "SERGEANT", product = terryKitties, person = terry)
 }

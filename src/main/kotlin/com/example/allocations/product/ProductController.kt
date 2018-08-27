@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.net.URI
+import java.time.LocalDate
 
 const val products = "/products"
 
@@ -18,8 +20,11 @@ const val products = "/products"
 class ProductController(val service: ProductService) {
 
     @GetMapping("")
-    fun getProducts(): List<Product> {
-        return service.findAllProducts()
+    fun getProducts(@RequestParam("date", required = false, defaultValue = "") date: String): List<Product> {
+        return when (date) {
+            "" -> service.findAllProducts()
+            else -> service.findProductsForDate(date = LocalDate.parse(date))
+        }
     }
 
     @GetMapping("/{id}")
@@ -30,9 +35,8 @@ class ProductController(val service: ProductService) {
     }
 
     @PostMapping("")
-    fun createPerson(@RequestBody product: Product): ResponseEntity<Any> =
+    fun createProduct(@RequestBody product: Product): ResponseEntity<Any> =
         service.saveProduct(product).let {
             ResponseEntity.created(URI("$products/${it.id}")).body(it)
         }
-
 }
