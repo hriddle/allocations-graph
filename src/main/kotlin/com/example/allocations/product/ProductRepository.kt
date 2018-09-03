@@ -20,7 +20,7 @@ interface ProductRepository : Neo4jRepository<ProductNode, Long> {
     @Query("""WITH date({queryDate}) AS d
         MATCH (people:Person)-[worked:WORKED_ON]->(product:Product)
         WHERE date(worked.startDate) <= d
-        AND (date(worked.startDate)+ duration({ days: (worked.durationInWeeks*7) })) >= d
+        AND date(worked.endDate) >= d
         RETURN people, worked, product""")
     fun findProductsForDate(@Param("queryDate") date: String): Iterable<ProductNode>
 }
@@ -32,12 +32,13 @@ data class ProductNode(
     var description: String = "",
     var techStack: List<String> = emptyList(),
     var startDate: LocalDate = LocalDate.now(),
+    var endDate: LocalDate = LocalDate.MAX,
     @JsonIgnoreProperties("product")
     @Relationship(type = "WORKED_ON", direction = Relationship.INCOMING)
     var team: ArrayList<WorkedOn> = ArrayList()
 ) {
     override fun toString(): String {
-        return "ProductNode(id=$id, name='$name', description='$description', techStack=$techStack, startDate=$startDate)"
+        return "ProductNode(id=$id, name='$name', description='$description', techStack=$techStack, startDate=$startDate, endDate=$endDate)"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -46,10 +47,20 @@ data class ProductNode(
             && description == other.description
             && techStack == other.techStack
             && startDate == other.startDate
+            && endDate == other.endDate
             )
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(name, description, techStack, startDate)
+        return Objects.hash(name, description, techStack, startDate, endDate)
     }
 }
+
+fun Product.toNode(): ProductNode = ProductNode(
+    id = this.id,
+    name = this.name,
+    description = this.description,
+    techStack = this.techStack,
+    startDate = this.startDate,
+    endDate = this.endDate
+)

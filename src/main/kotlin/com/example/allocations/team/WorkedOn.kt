@@ -21,20 +21,16 @@ data class WorkedOn(
     @JsonIgnoreProperties("team")
     @EndNode var product: ProductNode = ProductNode(),
     @Property var startDate: LocalDate = LocalDate.now(),
-    @Property var durationInWeeks: Int = -1,
+    @Property var endDate: LocalDate = LocalDate.MAX,
     @Property var role: String = UNKNOWN
 ) {
-    val endDate: LocalDate
-        get() =
-            if (durationInWeeks > 0) startDate.plusWeeks(durationInWeeks.toLong())
-            else LocalDate.MAX
 
     override fun toString(): String {
-        return "WorkedOn(id=$id, person=${person.id}, product=${product.id}, startDate=$startDate, durationInWeeks=$durationInWeeks, role='$role')"
+        return "WorkedOn(id=$id, person=${person.id}, product=${product.id}, startDate=$startDate, endDate=$endDate, role='$role')"
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(person.name, product.name, startDate, durationInWeeks, role)
+        return Objects.hash(person.name, product.name, startDate, endDate, role)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -42,7 +38,7 @@ data class WorkedOn(
             && person.name == other.person.name
             && product.name == other.product.name
             && startDate == other.startDate
-            && durationInWeeks == other.durationInWeeks
+            && endDate == other.endDate
             && role == other.role
             )
     }

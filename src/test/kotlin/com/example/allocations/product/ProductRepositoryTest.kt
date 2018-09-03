@@ -14,6 +14,7 @@ import com.example.allocations.MockWorkedOnRelationship.fullBoyleSergeantTerry
 import com.example.allocations.MockWorkedOnRelationship.puzzleMasterDetectiveAmy
 import com.example.allocations.MockWorkedOnRelationship.terryKittiesDetectiveAmy
 import com.example.allocations.MockWorkedOnRelationship.terryKittiesSergeantTerry
+import com.example.allocations.asInsert
 import com.example.allocations.person.PersonRepository
 import org.amshove.kluent.shouldEqual
 import org.junit.After
@@ -71,10 +72,10 @@ class ProductRepositoryTest {
     }
 
     private fun loadPeople() {
-        personRepository.save(rosa)
-        personRepository.save(amy)
-        personRepository.save(jake)
-        personRepository.save(terry)
+        personRepository.save(rosa.asInsert)
+        personRepository.save(amy.asInsert)
+        personRepository.save(jake.asInsert)
+        personRepository.save(terry.asInsert)
     }
 
     private fun loadProducts() {

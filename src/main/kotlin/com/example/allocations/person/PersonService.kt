@@ -16,8 +16,6 @@ class PersonService(val personRepository: PersonRepository) {
 
     @Transactional
     fun savePerson(person: Person): Person {
-        return personRepository.save(
-            PersonNode(name = person.name, role = person.role, level = person.level)
-        ).let { Person.fromNode(it) }
+        return personRepository.save(person.toNode()).let { Person.fromNode(it) }
     }
 }

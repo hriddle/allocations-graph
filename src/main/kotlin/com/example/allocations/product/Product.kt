@@ -11,6 +11,7 @@ data class Product(
     val techStack: List<String> = emptyList(),
     @JsonFormat(pattern = "yyyy-MM-dd")
     val startDate: LocalDate,
+    val endDate: LocalDate,
     val team: List<TeamPerson> = emptyList()
 ) {
     companion object Translator {
@@ -20,6 +21,7 @@ data class Product(
             description = node.description,
             techStack = node.techStack,
             startDate = node.startDate,
+            endDate = node.endDate,
             team = node.team.map { TeamPerson.fromNode(it) }
         )
     }

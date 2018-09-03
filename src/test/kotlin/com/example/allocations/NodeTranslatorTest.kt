@@ -3,8 +3,10 @@ package com.example.allocations
 import com.example.allocations.person.Person
 import com.example.allocations.person.PersonNode
 import com.example.allocations.person.ProductHistory
+import com.example.allocations.person.toNode
 import com.example.allocations.product.Product
 import com.example.allocations.product.ProductNode
+import com.example.allocations.product.toNode
 import com.example.allocations.team.TeamPerson
 import com.example.allocations.team.WorkedOn
 import org.amshove.kluent.shouldEqual
@@ -22,26 +24,22 @@ class NodeTranslatorTest {
 
     @Test
     fun `translating PersonNode to Person should build Person object`() {
-
         Person.fromNode(rosaNode) shouldEqual rosa
     }
 
     @Test
-    fun `translating ProductNode to Product should build Product object`() {
+    fun `translating Person to PersonNode should build PersonNode object`() {
+        rosa.toNode() shouldEqual rosaNode
+    }
 
+    @Test
+    fun `translating ProductNode to Product should build Product object`() {
         Product.fromNode(mooMooNode) shouldEqual mooMoo
     }
 
     @Test
-    fun `product history end date should be MAX when duration is -1`() {
-
-        ProductHistory.fromNode(rosaWorkedOnProduct.copy(durationInWeeks = -1)).endDate shouldEqual LocalDate.MAX
-    }
-
-    @Test
-    fun `team person end date should be MAX when duration is -1`() {
-
-        TeamPerson.fromNode(rosaWorkedOnProduct.copy(durationInWeeks = -1)).endDate shouldEqual LocalDate.MAX
+    fun `translating Product to ProductNode should build Person object`() {
+        mooMoo.toNode() shouldEqual mooMooNode
     }
 
     private val rosaNode = PersonNode(
@@ -63,7 +61,7 @@ class NodeTranslatorTest {
         person = rosaNode,
         product = mooMooNode,
         startDate = LocalDate.of(2018, 4, 2),
-        durationInWeeks = 2,
+        endDate = LocalDate.of(2018, 4, 16),
         role = "DETECTIVE"
     )
 
@@ -85,6 +83,7 @@ class NodeTranslatorTest {
         name = "Moo Moo",
         techStack = listOf("burglary", "arson"),
         startDate = LocalDate.of(2018, 4, 1),
+        endDate = LocalDate.MAX,
         team = listOf(TeamPerson(
             id = 78912,
             name = "Rosa Diaz",

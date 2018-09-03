@@ -41,3 +41,10 @@ data class PersonNode(
         return Objects.hash(name, role, level)
     }
 }
+
+fun Person.toNode(): PersonNode = PersonNode(
+    id = this.id,
+    name = this.name,
+    role = this.role,
+    level = this.level
+)

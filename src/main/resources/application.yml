@@ -1,6 +1,7 @@
 spring:
   data:
     neo4j:
-      uri:
+      username:
+      password:
 
 indexes.auto: assert

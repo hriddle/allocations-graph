@@ -12,10 +12,10 @@ import com.example.allocations.team.WorkedOn
 import java.time.LocalDate
 
 object MockPersonNode {
-    val jake = PersonNode(name = "Jake")
-    val amy = PersonNode(name = "Amy")
-    val terry = PersonNode(name = "Terry")
-    val rosa = PersonNode(name = "Rosa")
+    val jake = PersonNode(id = 1, name = "Jake", role = "DETECTIVE", level = "DETECTIVE")
+    val amy = PersonNode(id = 2, name = "Amy", role = "DETECTIVE", level = "DETECTIVE")
+    val terry = PersonNode(id = 3, name = "Terry", role = "SERGEANT", level = "SERGEANT")
+    val rosa = PersonNode(id = 4, name = "Rosa", role = "DETECTIVE", level = "DETECTIVE")
 }
 
 object MockProductNode {
@@ -26,10 +26,10 @@ object MockProductNode {
 }
 
 object MockWorkedOnRelationship {
-    val fullBoyleSergeantTerry = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 12, role = "SERGEANT", product = fullBoyle, person = terry)
-    val fullBoyleDetectiveAmy = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 24, role = "DETECTIVE", product = fullBoyle, person = amy)
-    val fullBoyleDetectiveJake = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 12, role = "DETECTIVE", product = fullBoyle, person = jake)
-    val puzzleMasterDetectiveAmy = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 52, role = "DETECTIVE", product = puzzleMaster, person = amy)
-    val terryKittiesDetectiveAmy = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 12, role = "DETECTIVE", product = terryKitties, person = amy)
-    val terryKittiesSergeantTerry = WorkedOn(startDate = LocalDate.of(2018, 1, 1), durationInWeeks = 12, role = "SERGEANT", product = terryKitties, person = terry)
+    val fullBoyleSergeantTerry = WorkedOn(startDate = LocalDate.of(2018, 1, 1), endDate = LocalDate.of(2018, 4, 1), role = "SERGEANT", product = fullBoyle, person = terry)
+    val fullBoyleDetectiveAmy = WorkedOn(startDate = LocalDate.of(2018, 1, 1), endDate = LocalDate.of(2018, 7, 1), role = "DETECTIVE", product = fullBoyle, person = amy)
+    val fullBoyleDetectiveJake = WorkedOn(startDate = LocalDate.of(2018, 1, 1), endDate = LocalDate.of(2018, 4, 1), role = "DETECTIVE", product = fullBoyle, person = jake)
+    val puzzleMasterDetectiveAmy = WorkedOn(startDate = LocalDate.of(2018, 1, 1), endDate = LocalDate.of(2019, 1, 1), role = "DETECTIVE", product = puzzleMaster, person = amy)
+    val terryKittiesDetectiveAmy = WorkedOn(startDate = LocalDate.of(2018, 1, 1), endDate = LocalDate.of(2018, 4, 1), role = "DETECTIVE", product = terryKitties, person = amy)
+    val terryKittiesSergeantTerry = WorkedOn(startDate = LocalDate.of(2018, 1, 1), endDate = LocalDate.of(2018, 4, 1), role = "SERGEANT", product = terryKitties, person = terry)
 }
