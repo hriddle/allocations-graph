@@ -19,6 +19,7 @@ interface PersonRepository : Neo4jRepository<PersonNode, Long>
 data class PersonNode(
     @Id @GeneratedValue var id: Long = -1,
     var name: String = "",
+    var company: String = UNKNOWN,
     var role: String = UNKNOWN,
     var level: String = UNKNOWN,
     @JsonIgnoreProperties("person")
@@ -27,24 +28,26 @@ data class PersonNode(
 ) {
 
     override fun toString(): String {
-        return "PersonNode(id=$id, name='$name', role='$role', level='$level')"
+        return "PersonNode(id=$id, name='$name', company='$company', role='$role', level='$level')"
     }
 
     override fun equals(other: Any?): Boolean {
         return ((this === other || other is PersonNode)
             && name == other.name
+            && company == other.company
             && role == other.role
             && level == other.level
             )
     }
     override fun hashCode(): Int {
-        return Objects.hash(name, role, level)
+        return Objects.hash(name, company, role, level)
     }
 }
 
 fun Person.toNode(): PersonNode = PersonNode(
     id = this.id,
     name = this.name,
+    company = this.company,
     role = this.role,
     level = this.level
 )

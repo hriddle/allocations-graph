@@ -22,15 +22,16 @@ data class WorkedOn(
     @EndNode var product: ProductNode = ProductNode(),
     @Property var startDate: LocalDate = LocalDate.now(),
     @Property var endDate: LocalDate = LocalDate.MAX,
+    @Property var company: String = UNKNOWN,
     @Property var role: String = UNKNOWN
 ) {
 
     override fun toString(): String {
-        return "WorkedOn(id=$id, person=${person.id}, product=${product.id}, startDate=$startDate, endDate=$endDate, role='$role')"
+        return "WorkedOn(id=$id, person=${person.id}, product=${product.id}, startDate=$startDate, endDate=$endDate, company=$company, role='$role')"
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(person.name, product.name, startDate, endDate, role)
+        return Objects.hash(person.name, product.name, startDate, endDate, company, role)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -39,6 +40,7 @@ data class WorkedOn(
             && product.name == other.product.name
             && startDate == other.startDate
             && endDate == other.endDate
+            && company == other.company
             && role == other.role
             )
     }

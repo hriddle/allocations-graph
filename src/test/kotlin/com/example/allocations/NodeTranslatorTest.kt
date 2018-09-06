@@ -45,6 +45,7 @@ class NodeTranslatorTest {
     private val rosaNode = PersonNode(
         id = 78912,
         name = "Rosa Diaz",
+        company = "NYPD",
         role = "DETECTIVE",
         level = "SECOND"
     )
@@ -62,12 +63,14 @@ class NodeTranslatorTest {
         product = mooMooNode,
         startDate = LocalDate.of(2018, 4, 2),
         endDate = LocalDate.of(2018, 4, 16),
+        company = "NYPD",
         role = "DETECTIVE"
     )
 
     private val rosa = Person(
         id = 78912,
         name = "Rosa Diaz",
+        company = "NYPD",
         role = "DETECTIVE",
         level = "SECOND",
         productHistory = listOf(ProductHistory(
@@ -87,6 +90,7 @@ class NodeTranslatorTest {
         team = listOf(TeamPerson(
             id = 78912,
             name = "Rosa Diaz",
+            company = "NYPD",
             role = "DETECTIVE",
             startDate = LocalDate.of(2018, 4, 2),
             endDate = LocalDate.of(2018, 4, 16)

@@ -6,6 +6,7 @@ import java.time.LocalDate
 data class Person(
     val id: Long,
     val name: String,
+    val company: String,
     val role: String,
     val level: String,
     val productHistory: List<ProductHistory> = emptyList()
@@ -14,6 +15,7 @@ data class Person(
         fun fromNode(node: PersonNode) = Person(
             id = node.id,
             name = node.name,
+            company = node.company,
             role = node.role,
             level = node.level,
             productHistory = node.workedOn.map { ProductHistory.fromNode(it) }
