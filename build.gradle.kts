@@ -55,34 +55,33 @@ tasks {
 }
 
 dependencies {
-    compile(kotlin("stdlib-jdk8"))
-    compile(kotlin("reflect"))
-    compileSpringBootStarters("actuator", "data-neo4j", "hateoas", "web")
+    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("reflect"))
+    springBootStarters("actuator", "data-neo4j", "hateoas", "web")
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-    compile("io.springfox:springfox-swagger2:$swagger")
-    compile("io.springfox:springfox-swagger-ui:$swagger")
+    implementation("io.springfox:springfox-swagger2:$swagger")
+    implementation("io.springfox:springfox-swagger-ui:$swagger")
 
-    testCompile(springBootStarter("test"))
-    testCompile("org.neo4j:neo4j-ogm-embedded-driver:$neo4jEmbeddedDriver")
-    testCompile("org.neo4j:neo4j:$neo4j")
-    testCompile("com.nhaarman:mockito-kotlin:$mockito")
-    testCompile("org.amshove.kluent:kluent:$kluent")
+    testImplementation(springBootStarter("test"))
+    testImplementation("org.neo4j:neo4j-ogm-embedded-driver:$neo4jEmbeddedDriver")
+    testImplementation("org.neo4j:neo4j:$neo4j")
+    testImplementation("com.nhaarman:mockito-kotlin:$mockito")
+    testImplementation("org.amshove.kluent:kluent:$kluent")
 }
 
 repositories {
     jcenter()
-    spring("snapshot")
-    spring("milestone")
+    springRepos("snapshot", "milestone")
 }
 
 /***** EXTENSIONS *****/
 
-fun RepositoryHandler.spring(repo: String): MavenArtifactRepository =
-    this.maven("https://repo.spring.io/$repo")
+fun RepositoryHandler.springRepos(vararg repos: String): List<MavenArtifactRepository> =
+    repos.map { this.maven("https://repo.spring.io/$it") }
 
-fun DependencyHandler.compileSpringBootStarters(vararg modules: String): List<Dependency?> =
-    modules.map { this.compile(springBootStarter(it)) }
+fun DependencyHandler.springBootStarters(vararg modules: String): List<Dependency?> =
+    modules.map { this.implementation(springBootStarter(it)) }
 
 fun springBootStarter(module: String, version: String? = null): String =
     "org.springframework.boot:spring-boot-starter-$module${version?.let { ":$version" } ?: ""}"
