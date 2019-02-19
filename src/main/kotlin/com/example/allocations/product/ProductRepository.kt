@@ -18,7 +18,10 @@ import java.util.Objects
 interface ProductRepository : Neo4jRepository<ProductNode, Long> {
 
     @Query("""WITH date({queryDate}) AS d
-        MATCH (people:Person)-[worked:WORKED_ON]->(product:Product)
+        MATCH (product:Product)
+        WHERE date(product.startDate) <= d
+        AND date(product.endDate) >= d
+        OPTIONAL MATCH (people:Person)-[worked:WORKED_ON]->(product)
         WHERE date(worked.startDate) <= d
         AND date(worked.endDate) >= d
         RETURN people, worked, product""")
